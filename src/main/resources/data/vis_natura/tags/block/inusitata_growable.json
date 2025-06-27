@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:mangrove_propagule",
+        "minecraft:pale_oak_sapling",
+        "minecraft:closed_eyeblossom",
+        "minecraft:open_eyeblossom"
+    ]
+}

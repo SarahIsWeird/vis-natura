@@ -1,0 +1,11 @@
+{
+    "required": true,
+    "package": "com.sarahisweird.vis_natura.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "client": [
+        "MouseMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

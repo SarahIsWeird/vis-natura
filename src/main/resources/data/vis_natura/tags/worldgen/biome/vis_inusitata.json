@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:old_growth_birch_forest",
+        "minecraft:old_growth_pine_taiga",
+        "minecraft:old_growth_spruce_taiga",
+        "minecraft:pale_garden",
+        "minecraft:soul_sand_valley",
+        "minecraft:swamp",
+        "minecraft:mangrove_swamp",
+        "minecraft:warped_forest"
+    ]
+}

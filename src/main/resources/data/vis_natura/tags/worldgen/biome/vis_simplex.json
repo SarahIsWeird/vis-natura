@@ -1,0 +1,14 @@
+{
+    "replace": false,
+    "values": [
+        "minecraft:beach",
+        "minecraft:dripstone_caves",
+        "minecraft:grove",
+        "minecraft:lush_caves",
+        "minecraft:meadow",
+        "minecraft:plains",
+        "minecraft:snowy_beach",
+        "minecraft:snowy_plains",
+        "minecraft:sunflower_plains"
+    ]
+}

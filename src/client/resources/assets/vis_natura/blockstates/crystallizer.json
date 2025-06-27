@@ -1,0 +1,10 @@
+{
+    "variants": {
+        "lit=true": {
+            "model": "vis_natura:block/crystallizer"
+        },
+        "lit=false": {
+            "model": "vis_natura:block/crystallizer"
+        }
+    }
+}

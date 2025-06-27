@@ -1,0 +1,50 @@
+{
+    "schemaVersion": 1,
+    "id": "vis_natura",
+    "version": "${version}",
+    "name": "Vis Natura",
+    "description": "This is an example description! Tell everyone what your mod is about!",
+    "authors": [
+        "SarahIsWeird"
+    ],
+    "contact": {
+        "homepage": "https://github.com/SarahIsWeird/vis-natura",
+        "sources": "https://github.com/FabricMC/vis-natura"
+    },
+    "license": "MIT",
+    "icon": "assets/vis_natura/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            {
+                "value": "com.sarahisweird.vis_natura.VisNatura",
+                "adapter": "kotlin"
+            }
+        ],
+        "client": [
+            {
+                "value": "com.sarahisweird.vis_natura.VisNaturaClientKt::initializeClient",
+                "adapter": "kotlin"
+            }
+        ],
+        "fabric-datagen": [
+            {
+                "value": "com.sarahisweird.vis_natura.VisNaturaDataGenerator",
+                "adapter": "kotlin"
+            }
+        ]
+    },
+    "mixins": [
+        {
+            "environment": "client",
+            "config": "vis_natura.client.mixins.json"
+        }
+    ],
+    "depends": {
+        "fabricloader": ">=0.16.14",
+        "minecraft": "~1.21.5",
+        "java": ">=21",
+        "fabric-api": "*",
+        "fabric-language-kotlin": "*"
+    }
+}

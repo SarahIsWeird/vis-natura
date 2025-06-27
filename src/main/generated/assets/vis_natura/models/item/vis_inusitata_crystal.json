@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vis_natura:item/vis_inusitata_crystal"
+  }
+}

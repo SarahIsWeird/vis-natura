@@ -1,0 +1,15 @@
+{
+    "item.vis_natura.wand": "Wand",
+
+    "item.vis_natura.vis_abyssi_crystal": "Vis Abyssi Crystal",
+    "item.vis_natura.vis_aquae_crystal": "Vis Aquae Crystal",
+    "item.vis_natura.vis_arborum_crystal": "Vis Arborum Crystal",
+    "item.vis_natura.vis_fungorum_crystal": "Vis Fungorum Crystal",
+    "item.vis_natura.vis_ignis_crystal": "Vis Ignis Crystal",
+    "item.vis_natura.vis_inusitata_crystal": "Vis Inusitata Crystal",
+    "item.vis_natura.vis_simplex_crystal": "Vis Simplex Crystal",
+
+    "block.vis_natura.crystallizer": "Vis Crystallizer",
+
+    "itemGroup.vis_natura": "Vis Natura"
+}
