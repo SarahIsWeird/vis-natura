@@ -1,62 +1,53 @@
 package com.sarahisweird.vis_natura.spell
 
 import com.sarahisweird.vis_natura.vis.VisType
-import net.minecraft.entity.Entity
-import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.particle.DustParticleEffect
 import net.minecraft.util.Identifier
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.math.intprovider.UniformIntProvider
 import net.minecraft.util.math.random.Random
 import net.minecraft.world.World
-import org.apache.logging.log4j.LogManager
 import java.util.*
 
 abstract class Spell(
     val id: Identifier,
-    protected val visTypes: EnumSet<VisType>,
+    protected val spellVisTypes: EnumSet<VisType>,
 ) {
-    sealed class HitInfo(
-        val world: World,
-        val player: PlayerEntity?,
-    )
-
-    class NoHitInfo(
-        world: World,
-        player: PlayerEntity?,
-    ) : HitInfo(world, player)
-
-    class BlockHitInfo(
-        world: World,
-        player: PlayerEntity?,
-        val blockPos: BlockPos,
-    ) : HitInfo(world, player)
-
-    class EntityHitInfo(
-        world: World,
-        player: PlayerEntity?,
-        val pos: Vec3d,
-        val entity: Entity,
-    ) : HitInfo(world, player)
-
     protected val random: Random = Random.create()
-    private val logger = LogManager.getLogger(Spell::class.java)
 
     constructor(id: Identifier, visType: VisType)
             : this(id, EnumSet.of(visType))
     constructor(id: Identifier, firstVisType: VisType, vararg visTypes: VisType)
             : this(id, EnumSet.of(firstVisType, *visTypes))
 
-    open fun onBlockHit(hitInfo: BlockHitInfo) {
+    val visTypes: EnumSet<VisType>
+        get() = spellVisTypes.clone()
+
+    open fun onDirectBlockHit(hitInfo: DirectBlockHitInfo) {
+        this.onBlockHit(hitInfo)
+    }
+
+    open fun onRangedBlockHit(hitInfo: RangedBlockHitInfo) {
+        this.onBlockHit(hitInfo)
+    }
+
+    open fun onBlockHit(hitInfo: BlockCastInfo) {
         this.spawnParticles(hitInfo.world, hitInfo.blockPos.up().toCenterPos())
     }
 
-    open fun onEntityHit(hitInfo: EntityHitInfo) {
+    open fun onDirectEntityHit(hitInfo: DirectEntityHitInfo) {
+        this.onEntityHit(hitInfo)
+    }
+
+    open fun onRangedEntityHit(hitInfo: RangedEntityHitInfo) {
+        this.onEntityHit(hitInfo)
+    }
+
+    open fun onEntityHit(hitInfo: EntityCastInfo) {
         this.spawnParticles(hitInfo.world, hitInfo.pos)
     }
 
-    open fun onNothingHit(hitInfo: NoHitInfo) {
+    open fun onSelfTarget(hitInfo: SelfTargetInfo) {
         // By default, we don't even spawn particles.
         // Some spells (like vitalize) override this, others don't.
     }
@@ -69,10 +60,20 @@ abstract class Spell(
             val pos = pos.addRandom(this.random, 0.5f)
 
             world.addParticleClient(
-                DustParticleEffect(visTypes.random().color, 1f),
+                DustParticleEffect(spellVisTypes.random().color, 1f),
                 pos.x, pos.y, pos.z,
                 0.0, 1.0, 0.0,
             )
+        }
+    }
+
+    fun onHit(castInfo: CastInfo) {
+        when (castInfo) {
+            is DirectBlockHitInfo -> this.onDirectBlockHit(castInfo)
+            is RangedBlockHitInfo -> this.onRangedBlockHit(castInfo)
+            is DirectEntityHitInfo -> this.onDirectEntityHit(castInfo)
+            is RangedEntityHitInfo -> this.onRangedEntityHit(castInfo)
+            is SelfTargetInfo -> this.onSelfTarget(castInfo)
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.sarahisweird.vis_natura.spell.impl
 
 import com.sarahisweird.vis_natura.VisNatura
+import com.sarahisweird.vis_natura.spell.BlockCastInfo
+import com.sarahisweird.vis_natura.spell.EntityCastInfo
 import com.sarahisweird.vis_natura.spell.Spell
 import com.sarahisweird.vis_natura.vis.VisType
 import net.minecraft.entity.player.PlayerEntity
@@ -13,12 +15,12 @@ object WarpSpell : Spell(
     VisType.VIS_INUSITATA,
     VisType.VIS_SIMPLEX,
 ) {
-    override fun onBlockHit(hitInfo: BlockHitInfo) {
+    override fun onBlockHit(hitInfo: BlockCastInfo) {
         super.onBlockHit(hitInfo)
         this.teleportPlayerTo(hitInfo.player, hitInfo.blockPos.up().toCenterPos())
     }
 
-    override fun onEntityHit(hitInfo: EntityHitInfo) {
+    override fun onEntityHit(hitInfo: EntityCastInfo) {
         super.onEntityHit(hitInfo)
         this.teleportPlayerTo(hitInfo.player, hitInfo.pos)
     }

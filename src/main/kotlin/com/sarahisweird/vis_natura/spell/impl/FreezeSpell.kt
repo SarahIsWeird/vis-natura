@@ -1,6 +1,8 @@
 package com.sarahisweird.vis_natura.spell.impl
 
 import com.sarahisweird.vis_natura.VisNatura
+import com.sarahisweird.vis_natura.spell.BlockCastInfo
+import com.sarahisweird.vis_natura.spell.EntityCastInfo
 import com.sarahisweird.vis_natura.spell.Spell
 import com.sarahisweird.vis_natura.vis.VisType
 import net.minecraft.block.Blocks
@@ -12,13 +14,12 @@ import net.minecraft.world.World
 object FreezeSpell : Spell(VisNatura.id("freeze"), VisType.VIS_AQUAE) {
     private const val RANGE = 4
 
-    override fun onBlockHit(hitInfo: BlockHitInfo) {
+    override fun onBlockHit(hitInfo: BlockCastInfo) {
         super.onBlockHit(hitInfo)
-
         this.iterateBlocks(hitInfo.world, hitInfo.blockPos)
     }
 
-    override fun onEntityHit(hitInfo: EntityHitInfo) {
+    override fun onEntityHit(hitInfo: EntityCastInfo) {
         super.onEntityHit(hitInfo)
 
         this.iterateBlocks(hitInfo.world, BlockPos.ofFloored(hitInfo.pos))

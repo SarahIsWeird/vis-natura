@@ -1,5 +1,7 @@
 package com.sarahisweird.vis_natura
 
+import com.sarahisweird.vis_natura.entity.SpellCastEntity
+import com.sarahisweird.vis_natura.entity.VNTrackedDataHandlers
 import com.sarahisweird.vis_natura.item.ItemComponents
 import com.sarahisweird.vis_natura.networking.PacketHandler
 import com.sarahisweird.vis_natura.networking.payloads.ChangeSelectedSpellC2SPayload
@@ -14,6 +16,12 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
+import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricTrackedDataRegistry
+import net.minecraft.entity.EntityType
+import net.minecraft.entity.SpawnGroup
+import net.minecraft.registry.Registries
+import net.minecraft.registry.Registry
+import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.server.MinecraftServer
 import net.minecraft.util.Identifier
@@ -28,6 +36,16 @@ object VisNatura : ModInitializer {
     private val logger = LoggerFactory.getLogger("Vis Natura")
 
     val spellRegistry = SpellRegistry()
+
+    val SPELL_CAST_KEY: RegistryKey<EntityType<*>> =
+        RegistryKey.of(RegistryKeys.ENTITY_TYPE, id("spell_cast"))
+    val SPELL_CAST: EntityType<SpellCastEntity> =
+        Registry.register(
+            Registries.ENTITY_TYPE,
+            id("spell_cast"),
+            EntityType.Builder.create(::SpellCastEntity, SpawnGroup.MISC)
+                .dimensions(0.25f, 0.25f)
+                .build(SPELL_CAST_KEY))
 
     override fun onInitialize() {
         logger.info("*peek peek*")
@@ -52,6 +70,8 @@ object VisNatura : ModInitializer {
             VitalizeSpell,
             WarpSpell,
         )
+
+        FabricTrackedDataRegistry.register(id("spell_type"), VNTrackedDataHandlers.SPELL_TYPE)
 
         logger.info("*poke poke*")
 

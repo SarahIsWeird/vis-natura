@@ -1,6 +1,9 @@
 package com.sarahisweird.vis_natura.spell.impl
 
 import com.sarahisweird.vis_natura.VisNatura
+import com.sarahisweird.vis_natura.spell.BlockCastInfo
+import com.sarahisweird.vis_natura.spell.EntityCastInfo
+import com.sarahisweird.vis_natura.spell.SelfTargetInfo
 import com.sarahisweird.vis_natura.spell.Spell
 import com.sarahisweird.vis_natura.util.PlantTransmuter
 import com.sarahisweird.vis_natura.vis.VisType
@@ -15,7 +18,7 @@ object VitalizeSpell : Spell(VisNatura.id("vitalize"), VisType.VIS_SIMPLEX) {
     private const val RADIUS = 3.0
     private const val HEAL_STRENGTH = 6f
 
-    override fun onBlockHit(hitInfo: BlockHitInfo) {
+    override fun onBlockHit(hitInfo: BlockCastInfo) {
         if (PlantTransmuter.transmuteBlock(hitInfo.world, hitInfo.blockPos, VisType.VIS_SIMPLEX, ItemStack.EMPTY)) {
             return
         }
@@ -24,14 +27,17 @@ object VitalizeSpell : Spell(VisNatura.id("vitalize"), VisType.VIS_SIMPLEX) {
         this.healAround(hitInfo.world, hitInfo.blockPos.up().toCenterPos())
     }
 
-    override fun onEntityHit(hitInfo: EntityHitInfo) {
+    override fun onEntityHit(hitInfo: EntityCastInfo) {
         super.onEntityHit(hitInfo)
         this.healAround(hitInfo.world, hitInfo.pos)
     }
 
-    override fun onNothingHit(hitInfo: NoHitInfo) {
+    override fun onSelfTarget(hitInfo: SelfTargetInfo) {
+        super.onSelfTarget(hitInfo)
+
         val pos = hitInfo.player?.pos ?: return
         this.healAround(hitInfo.world, pos)
+        super.spawnParticles(hitInfo.world, hitInfo.player.eyePos)
     }
 
     private fun healAround(world: World, pos: Vec3d) {
