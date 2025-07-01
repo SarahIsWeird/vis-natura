@@ -1,7 +1,6 @@
 package com.sarahisweird.vis_natura
 
-import com.sarahisweird.vis_natura.block.CrystallizerBlock
-import com.sarahisweird.vis_natura.block.CrystallizerBlockEntity
+import com.sarahisweird.vis_natura.block.*
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.fabricmc.fabric.api.`object`.builder.v1.block.entity.FabricBlockEntityTypeBuilder
 import net.minecraft.block.AbstractBlock
@@ -18,6 +17,19 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.BlockSoundGroup
 
 object VNBlocks {
+    val ALTAR = register("altar", ::AltarBlock,
+        AbstractBlock.Settings.create()
+            .strength(2.5f)
+            .mapColor(MapColor.STONE_GRAY)
+            .requiresTool()
+            .sounds(BlockSoundGroup.STONE))
+
+    val CENSER = register("censer", ::CenserBlock,
+        AbstractBlock.Settings.create()
+            .strength(2.5f)
+            .mapColor(MapColor.GOLD)
+            .sounds(BlockSoundGroup.METAL))
+
     val CRYSTALLIZER = register("crystallizer", ::CrystallizerBlock,
         AbstractBlock.Settings.create()
             .strength(2.5f)
@@ -31,11 +43,15 @@ object VNBlocks {
                     0
                 }
             })
+
+    val BE_ALTAR = registerBE("altar", ::AltarBlockEntity, ALTAR)
     val BE_CRYSTALLIZER = registerBE("crystallizer", ::CrystallizerBlockEntity, CRYSTALLIZER)
 
     fun init() {
         ItemGroupEvents.modifyEntriesEvent(VNItems.ITEM_GROUP_KEY).register { group ->
             group.add(CRYSTALLIZER)
+            group.add(ALTAR)
+            group.add(CENSER)
         }
     }
 

@@ -1,4 +1,6 @@
 package com.sarahisweird.vis_natura.util
 
-val Int.seconds: Int
+typealias Ticks = Int
+
+val Int.seconds: Ticks
     get() = this * 20

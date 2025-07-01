@@ -16,7 +16,8 @@ import net.minecraft.text.Text
 import net.minecraft.util.Identifier
 
 object VNItems {
-    val WAND = register("wand", ::WandItem, Item.Settings())
+    val WAND = register("wand", ::WandItem,
+        Item.Settings().maxCount(1))
 
     val CRYSTAL_ABYSSI = register("vis_abyssi_crystal", VisCrystalItem.getFactory(VisType.VIS_ABYSSI), Item.Settings())
     val CRYSTAL_AQUAE = register("vis_aquae_crystal", VisCrystalItem.getFactory(VisType.VIS_AQUAE), Item.Settings())

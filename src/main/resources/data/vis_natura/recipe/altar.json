@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "vis_natura:altar_variants",
+    "pattern": [
+        " A ",
+        "CSC",
+        "SSS"
+    ],
+    "key": {
+        "A": "minecraft:amethyst_shard",
+        "C": "#vis_natura:vis_crystals",
+        "S": "#minecraft:stone_crafting_materials"
+    },
+    "result": {
+        "id": "vis_natura:altar"
+    }
+}

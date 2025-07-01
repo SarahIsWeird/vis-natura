@@ -40,6 +40,7 @@ import net.minecraft.util.shape.VoxelShape
 import net.minecraft.util.shape.VoxelShapes
 import net.minecraft.world.BlockView
 import net.minecraft.world.World
+import org.apache.logging.log4j.LogManager
 import kotlin.jvm.optionals.getOrElse
 import kotlin.jvm.optionals.getOrNull
 
@@ -218,6 +219,7 @@ class CrystallizerBlockEntity(
     state: BlockState
 ) : BlockEntity(VNBlocks.BE_CRYSTALLIZER, pos, state) {
     companion object {
+        private val LOGGER = LogManager.getLogger("VisNatura/CrystallizerBlockEntity")
         private val BIOME_UPDATE_FREQUENCY = 5.seconds
 
         fun tick(world: World, pos: BlockPos, state: BlockState, entity: CrystallizerBlockEntity) {
@@ -396,17 +398,10 @@ class CrystallizerBlockEntity(
 
         nbt.putInt("fuel_ticks", this.fuelTicks)
         nbt.putInt("vis_level", this.visLevel)
-
-        if (this.biomeVisType != null) {
-            nbt.put("biome_vis_type", VisType.CODEC, this.biomeVisType)
-        } else {
-            nbt.remove("biome_vis_type")
-        }
+        nbt.putNullable("biome_vis_type", VisType.CODEC, this.biomeVisType)
 
         if (!this.inventory.stack.isEmpty) {
             nbt.put("crystals", ItemStack.CODEC, this.inventory.stack)
-        } else {
-            nbt.remove("crystals")
         }
     }
 

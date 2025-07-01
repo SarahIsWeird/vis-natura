@@ -1,0 +1,12 @@
+{
+    "multipart": [
+        {
+            "when": { "hanging": "false" },
+            "apply": { "model": "vis_natura:block/censer" }
+        },
+        {
+            "when": { "hanging": "true" },
+            "apply": { "model": "vis_natura:block/censer_hanging" }
+        }
+    ]
+}

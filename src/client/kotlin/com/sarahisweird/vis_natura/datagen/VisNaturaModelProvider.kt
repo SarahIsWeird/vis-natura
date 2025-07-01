@@ -1,5 +1,6 @@
 package com.sarahisweird.vis_natura.datagen
 
+import com.sarahisweird.vis_natura.VNBlocks
 import com.sarahisweird.vis_natura.VNItems
 import com.sarahisweird.vis_natura.vis.VisType
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
@@ -16,7 +17,7 @@ class VisNaturaModelProvider(
     }
 
     override fun generateBlockStateModels(gen: BlockStateModelGenerator) {
-        // unused for now
+        gen.registerSimpleState(VNBlocks.ALTAR)
     }
 
     override fun generateItemModels(gen: ItemModelGenerator) {
